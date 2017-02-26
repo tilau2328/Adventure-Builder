@@ -1,0 +1,7 @@
+pt\ulisboa\tecnico\softeng\bank\domain\ClientContructorMethodTest.class
+pt\ulisboa\tecnico\softeng\bank\domain\OperationConstructorMethodTest.class
+pt\ulisboa\tecnico\softeng\bank\domain\AccountContructorMethodTest.class
+pt\ulisboa\tecnico\softeng\bank\domain\AccountDepositMethodTest.class
+pt\ulisboa\tecnico\softeng\bank\domain\BankConstructorTest.class
+pt\ulisboa\tecnico\softeng\bank\domain\BankHasAccountMethodTest.class
+pt\ulisboa\tecnico\softeng\bank\domain\AccountWithdrawMethodTest.class

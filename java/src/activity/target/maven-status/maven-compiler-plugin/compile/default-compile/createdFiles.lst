@@ -1,0 +1,5 @@
+pt\ulisboa\tecnico\softeng\activity\domain\Activity.class
+pt\ulisboa\tecnico\softeng\activity\domain\ActivityOffer.class
+pt\ulisboa\tecnico\softeng\activity\domain\ActivityProvider.class
+pt\ulisboa\tecnico\softeng\activity\domain\Booking.class
+pt\ulisboa\tecnico\softeng\activity\domain\exception\ActivityException.class

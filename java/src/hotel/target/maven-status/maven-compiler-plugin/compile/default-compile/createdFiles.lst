@@ -1,0 +1,5 @@
+pt\ulisboa\tecnico\softeng\hotel\domain\Room$Type.class
+pt\ulisboa\tecnico\softeng\hotel\domain\Room.class
+pt\ulisboa\tecnico\softeng\hotel\domain\Booking.class
+pt\ulisboa\tecnico\softeng\hotel\domain\Hotel.class
+pt\ulisboa\tecnico\softeng\hotel\exception\HotelException.class

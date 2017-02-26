@@ -1,9 +1,6 @@
 .classpath
 .project
 .settings
-java/bank/target
-java/hotel/target
-java/activity/target
-java/broker/target
+java/target
 workspace
 jmeter.log
