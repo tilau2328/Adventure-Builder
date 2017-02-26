@@ -6,6 +6,8 @@ import java.util.Set;
 import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.activity.domain.exception.ActivityException;
+import pt.ulisboa.tecnico.softeng.activity.utils.ParamName;
+import pt.ulisboa.tecnico.softeng.activity.utils.ValidationUtils;
 
 public class ActivityProvider {
 	public static Set<ActivityProvider> providers = new HashSet<>();
@@ -17,7 +19,7 @@ public class ActivityProvider {
 	private final Set<Activity> activities = new HashSet<>();
 
 	public ActivityProvider(String code, String name) {
-		checkCode(code);
+		validateArgs(name, code);
 
 		this.code = code;
 		this.name = name;
@@ -25,6 +27,12 @@ public class ActivityProvider {
 		ActivityProvider.providers.add(this);
 	}
 
+	private void validateArgs(String name, String code){
+		ValidationUtils.validateArgument(name, ParamName.NAME);
+		ValidationUtils.validateArgument(code, ParamName.CODE);
+		checkCode(code);
+	}
+	
 	private void checkCode(String code) {
 		if (code.length() != ActivityProvider.CODE_SIZE) {
 			throw new ActivityException();
@@ -35,15 +43,15 @@ public class ActivityProvider {
 		return this.name;
 	}
 
-	String getCode() {
+	public String getCode() {
 		return this.code;
 	}
 
-	int getNumberOfActivities() {
+	public int getNumberOfActivities() {
 		return this.activities.size();
 	}
 
-	void addActivity(Activity activity) {
+	public void addActivity(Activity activity) {
 		this.activities.add(activity);
 	}
 

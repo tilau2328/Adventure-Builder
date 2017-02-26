@@ -39,19 +39,19 @@ public class Hotel {
 		return null;
 	}
 
-	String getCode() {
+	public String getCode() {
 		return this.code;
 	}
 
-	String getName() {
+	public String getName() {
 		return this.name;
 	}
 
-	void addRoom(Room room) {
+	public void addRoom(Room room) {
 		this.rooms.add(room);
 	}
 
-	int getNumberOfRooms() {
+	public int getNumberOfRooms() {
 		return this.rooms.size();
 	}
 

@@ -25,7 +25,13 @@ public class Account {
 	private void validateArgs(Bank bank, Client client){
 		ValidationUtils.validateArgument(bank, ParamName.BANK);
 		ValidationUtils.validateArgument(client, ParamName.CLIENT);
-		ValidationUtils.validateArgument(client, bank);
+		validateClient(bank, client);
+	}
+	
+	private void validateClient(Bank bank, Client client) {
+		if(!bank.hasClient(client)){
+			throw new BankException();
+		}
 	}
 	
 	Bank getBank() {

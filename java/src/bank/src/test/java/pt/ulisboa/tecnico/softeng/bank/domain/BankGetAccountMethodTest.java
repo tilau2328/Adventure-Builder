@@ -31,9 +31,9 @@ public class BankGetAccountMethodTest {
 	public void failure_invalid_argument() {
 		try {
 			this.bank.getAccount(StringUtils.EMPTY_STRING);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
 	}
 	
@@ -41,9 +41,9 @@ public class BankGetAccountMethodTest {
 	public void failure_inexistent_account() {
 		try {
 			this.bank.getAccount(StringUtils.DEFAULT_ACCOUNT);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
 	}
 	

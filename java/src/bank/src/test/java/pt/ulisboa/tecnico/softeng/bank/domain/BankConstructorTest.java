@@ -30,38 +30,42 @@ public class BankConstructorTest {
 
 	@Test
 	public void failure_invalid_name() {
-		this.name = null;
 		try {
-			new Bank(this.name, this.code);
+			new Bank(null, this.code);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
-		Assert.fail();
 	}
 	
 	@Test
 	public void failure_invalid_code() {
-		this.code = null;
 		try {
-			new Bank(this.name, this.code);
+			new Bank(this.name, null);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
-		Assert.fail();
 	}
 	
 	@Test
-	public void failure_invalid_code_size() {
-		this.code = "BK011";
+	public void failure_invalid_code_size_minus() {
 		try {
-			new Bank(this.name, this.code);
+			new Bank(this.name, "BK0");
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
-		Assert.fail();
+	}
+	
+	@Test
+	public void failure_invalid_code_size_plus() {
+		try {
+			new Bank(this.name, "BK011");
+			Assert.fail();
+		} catch(BankException e){
+			//Assert.assertEquals("", e.getMessage());
+		}
 	}
 	
 	@Test
@@ -69,11 +73,10 @@ public class BankConstructorTest {
 		new Bank(this.name, this.code);
 		try {
 			new Bank(this.name, this.code);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
-		Assert.fail();
 	}
 	
 	@After

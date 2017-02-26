@@ -31,9 +31,8 @@ public class AccountContructorMethodTest {
 
 	@Test
 	public void failure_invalid_bank() {
-		this.bank = null;
 		try {
-			new Account(this.bank, this.client);
+			new Account(null, this.client);
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
 			return;
@@ -43,14 +42,12 @@ public class AccountContructorMethodTest {
 	
 	@Test
 	public void failure_invalid_client() {
-		this.client = null;
 		try {
-			new Account(this.bank, this.client);
+			new Account(this.bank, null);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
-		Assert.fail();
 	}
 	
 	@Test
@@ -58,16 +55,14 @@ public class AccountContructorMethodTest {
 		this.client = new Client(new Bank("Cash", "BK02"), "António");
 		try {
 			new Account(this.bank, this.client);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
-		Assert.fail();
 	}
 	
 	@After
 	public void tearDown() {
 		Bank.banks.clear();
 	}
-
 }

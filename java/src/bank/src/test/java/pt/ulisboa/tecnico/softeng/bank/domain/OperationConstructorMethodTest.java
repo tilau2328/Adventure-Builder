@@ -40,33 +40,30 @@ public class OperationConstructorMethodTest {
 	public void failure_invalid_type() {
 		try {
 			new Operation(null, this.account, 1000);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
-		Assert.fail();
 	}
 	
 	@Test
 	public void failure_invalid_account() {
 		try {
 			new Operation(Type.DEPOSIT, null, 1000);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
-		Assert.fail();
 	}
 	
 	@Test
 	public void failure_invalid_value() {
 		try {
 			new Operation(Type.DEPOSIT, this.account, -1);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
-		Assert.fail();
 	}
 	
 	@After

@@ -30,22 +30,20 @@ public class ClientContructorMethodTest {
 	public void failure_invalid_bank() {
 		try {
 			new Client(null, this.name);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
-		Assert.fail();
 	}
 	
 	@Test
 	public void failure_invalid_name() {
 		try {
 			new Client(this.bank, null);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
-		Assert.fail();
 	}
 	
 	@After

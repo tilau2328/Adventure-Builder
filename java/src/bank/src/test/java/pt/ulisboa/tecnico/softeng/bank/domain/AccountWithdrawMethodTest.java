@@ -34,33 +34,30 @@ public class AccountWithdrawMethodTest {
 	public void failure_zero_value() {
 		try {
 			this.account.withdraw(0);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
-		Assert.fail();
 	}
 	
 	@Test
 	public void failure_negative_value() {
 		try {
 			this.account.withdraw(-1);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
-		Assert.fail();
 	}
 	
 	@Test
 	public void failure_excessive_amount() {
 		try {
 			this.account.withdraw(101);
+			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
-			return;
 		}
-		Assert.fail();
 	}
 	
 	@After
