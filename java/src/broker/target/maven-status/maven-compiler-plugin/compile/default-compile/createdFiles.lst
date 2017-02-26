@@ -1,0 +1,7 @@
+pt\ulisboa\tecnico\softeng\broker\exception\BrokerException.class
+pt\ulisboa\tecnico\softeng\broker\interfaces\BankInterface.class
+pt\ulisboa\tecnico\softeng\broker\domain\Adventure.class
+pt\ulisboa\tecnico\softeng\broker\domain\Broker.class
+pt\ulisboa\tecnico\softeng\broker\Application.class
+pt\ulisboa\tecnico\softeng\broker\interfaces\HotelInterface.class
+pt\ulisboa\tecnico\softeng\broker\interfaces\ActivityInterface.class

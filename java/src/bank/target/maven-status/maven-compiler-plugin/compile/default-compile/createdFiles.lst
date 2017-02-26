@@ -1,0 +1,6 @@
+pt\ulisboa\tecnico\softeng\bank\domain\Bank.class
+pt\ulisboa\tecnico\softeng\bank\exception\BankException.class
+pt\ulisboa\tecnico\softeng\bank\domain\Client.class
+pt\ulisboa\tecnico\softeng\bank\domain\Account.class
+pt\ulisboa\tecnico\softeng\bank\domain\Operation.class
+pt\ulisboa\tecnico\softeng\bank\domain\Operation$Type.class
