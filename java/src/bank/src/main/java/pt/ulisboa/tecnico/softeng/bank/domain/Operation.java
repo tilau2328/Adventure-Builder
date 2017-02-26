@@ -2,8 +2,11 @@ package pt.ulisboa.tecnico.softeng.bank.domain;
 
 import java.time.LocalDateTime;
 
+import pt.ulisboa.tecnico.softeng.bank.utils.ParamName;
+import pt.ulisboa.tecnico.softeng.bank.utils.ValidationUtils;
+
 class Operation {
-	static enum Type {
+	public static enum Type {
 		DEPOSIT, WITHDRAW
 	};
 
@@ -15,7 +18,9 @@ class Operation {
 	private final int value;
 	private final LocalDateTime time;
 
-	Operation(Type type, Account account, int value) {
+	public Operation(Type type, Account account, int value) {
+		validateArgs(type, account, value);
+		
 		this.reference = account.getBank().getCode() + Integer.toString(++Operation.counter);
 		this.type = type;
 		this.account = account;
@@ -25,23 +30,29 @@ class Operation {
 		account.getBank().addLog(this);
 	}
 
-	String getReference() {
+	private void validateArgs(Type type, Account account, int value){
+		ValidationUtils.validateArgument(type, ParamName.TYPE);
+		ValidationUtils.validateArgument(account, ParamName.ACCOUNT);
+		ValidationUtils.validateArgument(value, ParamName.VALUE);
+	}
+	
+	public String getReference() {
 		return this.reference;
 	}
 
-	Type getType() {
+	public Type getType() {
 		return this.type;
 	}
 
-	Account getAccount() {
+	public Account getAccount() {
 		return this.account;
 	}
 
-	int getValue() {
+	public int getValue() {
 		return this.value;
 	}
 
-	LocalDateTime getTime() {
+	public LocalDateTime getTime() {
 		return this.time;
 	}
 

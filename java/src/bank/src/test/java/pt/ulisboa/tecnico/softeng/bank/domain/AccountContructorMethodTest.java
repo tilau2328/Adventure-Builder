@@ -5,9 +5,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
+
 public class AccountContructorMethodTest {
-	Bank bank;
-	Client client;
+	private Bank bank;
+	private Client client;
 
 	@Before
 	public void setUp() {
@@ -27,6 +29,42 @@ public class AccountContructorMethodTest {
 		Assert.assertTrue(this.bank.hasClient(this.client));
 	}
 
+	@Test
+	public void failure_invalid_bank() {
+		this.bank = null;
+		try {
+			new Account(this.bank, this.client);
+		} catch(BankException e){
+			//Assert.assertEquals("", e.getMessage());
+			return;
+		}
+		Assert.fail();
+	}
+	
+	@Test
+	public void failure_invalid_client() {
+		this.client = null;
+		try {
+			new Account(this.bank, this.client);
+		} catch(BankException e){
+			//Assert.assertEquals("", e.getMessage());
+			return;
+		}
+		Assert.fail();
+	}
+	
+	@Test
+	public void failure_invalid_client_bank() {
+		this.client = new Client(new Bank("Cash", "BK02"), "António");
+		try {
+			new Account(this.bank, this.client);
+		} catch(BankException e){
+			//Assert.assertEquals("", e.getMessage());
+			return;
+		}
+		Assert.fail();
+	}
+	
 	@After
 	public void tearDown() {
 		Bank.banks.clear();

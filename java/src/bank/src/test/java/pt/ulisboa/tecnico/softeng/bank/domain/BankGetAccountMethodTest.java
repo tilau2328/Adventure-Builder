@@ -6,46 +6,45 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
+import pt.ulisboa.tecnico.softeng.bank.utils.StringUtils;
 
-public class ClientContructorMethodTest {
-	private Bank bank;
-	private String name;
-	
+public class BankGetAccountMethodTest {
+	Bank bank;
+	Client client;
+
 	@Before
 	public void setUp() {
 		this.bank = new Bank("Money", "BK01");
-		this.name = "António";
+		this.client = new Client(this.bank, "António");
 	}
 
 	@Test
 	public void success() {
-		Client client = new Client(this.bank, this.name);
+		Account account = new Account(this.bank, this.client);
 
-		Assert.assertEquals(this.name, client.getName());
-		Assert.assertTrue(client.getID().length() >= 1);
-		Assert.assertTrue(this.bank.hasClient(client));
+		Account result = this.bank.getAccount(account.getIBAN());
+
+		Assert.assertEquals(account, result);
 	}
 
 	@Test
-	public void failure_invalid_bank() {
+	public void failure_invalid_argument() {
 		try {
-			new Client(null, this.name);
+			this.bank.getAccount(StringUtils.EMPTY_STRING);
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
 			return;
 		}
-		Assert.fail();
 	}
 	
 	@Test
-	public void failure_invalid_name() {
+	public void failure_inexistent_account() {
 		try {
-			new Client(this.bank, null);
+			this.bank.getAccount(StringUtils.DEFAULT_ACCOUNT);
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());
 			return;
 		}
-		Assert.fail();
 	}
 	
 	@After

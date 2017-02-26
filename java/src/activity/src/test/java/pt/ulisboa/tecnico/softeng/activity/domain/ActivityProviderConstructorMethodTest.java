@@ -11,7 +11,7 @@ public class ActivityProviderConstructorMethodTest {
 		ActivityProvider provider = new ActivityProvider("XtremX", "Adventure++");
 
 		Assert.assertEquals("Adventure++", provider.getName());
-		Assert.assertTrue(provider.getCode().length() == ActivityProvider.CODE_SIZE);
+		Assert.assertEquals(ActivityProvider.CODE_SIZE, provider.getCode().length());
 		Assert.assertEquals(1, ActivityProvider.providers.size());
 		Assert.assertEquals(0, provider.getNumberOfActivities());
 	}

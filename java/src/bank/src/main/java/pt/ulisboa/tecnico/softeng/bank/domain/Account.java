@@ -1,6 +1,8 @@
 package pt.ulisboa.tecnico.softeng.bank.domain;
 
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
+import pt.ulisboa.tecnico.softeng.bank.utils.ParamName;
+import pt.ulisboa.tecnico.softeng.bank.utils.ValidationUtils;
 
 public class Account {
 	private static int counter = 0;
@@ -11,6 +13,7 @@ public class Account {
 	private int balance;
 
 	public Account(Bank bank, Client client) {
+		validateArgs(bank, client);
 		this.bank = bank;
 		this.IBAN = bank.getCode() + Integer.toString(++Account.counter);
 		this.client = client;
@@ -19,6 +22,12 @@ public class Account {
 		bank.addAccount(this);
 	}
 
+	private void validateArgs(Bank bank, Client client){
+		ValidationUtils.validateArgument(bank, ParamName.BANK);
+		ValidationUtils.validateArgument(client, ParamName.CLIENT);
+		ValidationUtils.validateArgument(client, bank);
+	}
+	
 	Bank getBank() {
 		return this.bank;
 	}
@@ -43,6 +52,7 @@ public class Account {
 	}
 
 	public String withdraw(int amount) {
+		ValidationUtils.validateArgument(amount, ParamName.AMOUNT);
 		if (amount > this.balance) {
 			throw new BankException();
 		}

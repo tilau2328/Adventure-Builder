@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Set;
 
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
+import pt.ulisboa.tecnico.softeng.bank.utils.ParamName;
+import pt.ulisboa.tecnico.softeng.bank.utils.ValidationUtils;
 
 public class Bank {
 	public static Set<Bank> banks = new HashSet<>();
 
 	public static final int CODE_SIZE = 4;
-
+	
 	private final String name;
 	private final String code;
 	private final Set<Account> accounts = new HashSet<>();
@@ -19,53 +21,64 @@ public class Bank {
 	private final List<Operation> log = new ArrayList<>();
 
 	public Bank(String name, String code) {
-		checkCode(code);
-
+		validateArgs(name, code);
 		this.name = name;
 		this.code = code;
 
 		Bank.banks.add(this);
 	}
 
+	private void validateArgs(String name, String code){
+		ValidationUtils.validateArgument(name, ParamName.NAME);
+		ValidationUtils.validateArgument(code, ParamName.CODE);
+		checkCode(code);
+	}
+	
 	private void checkCode(String code) {
 		if (code.length() != Bank.CODE_SIZE) {
-			throw new BankException();
+			throw new BankException("Invalid Code Size");
+		}
+		for(Bank bank : Bank.banks){
+			if(bank.getCode().equals(code)){
+				throw new BankException("Code Aready In Use");
+			}
 		}
 	}
 
-	String getName() {
+	public String getName() {
 		return this.name;
 	}
 
-	String getCode() {
+	public String getCode() {
 		return this.code;
 	}
 
-	int getNumberOfAccounts() {
+	public int getNumberOfAccounts() {
 		return this.accounts.size();
 	}
 
-	int getNumberOfClients() {
+	public int getNumberOfClients() {
 		return this.clients.size();
 	}
 
-	void addAccount(Account account) {
+	public void addAccount(Account account) {
 		this.accounts.add(account);
 	}
 
-	boolean hasClient(Client client) {
+	public boolean hasClient(Client client) {
 		return this.clients.contains(client);
 	}
 
-	void addClient(Client client) {
+	public void addClient(Client client) {
 		this.clients.add(client);
 	}
 
-	void addLog(Operation operation) {
+	public void addLog(Operation operation) {
 		this.log.add(operation);
 	}
 
 	public Account getAccount(String IBAN) {
+		ValidationUtils.validateArgument(IBAN, ParamName.IBAN);
 		for (Account account : this.accounts) {
 			if (account.getIBAN().equals(IBAN)) {
 				return account;
