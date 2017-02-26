@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.joda.time.LocalDate;
 
+import pt.ulisboa.tecnico.softeng.hotel.utils.ParamName;
+import pt.ulisboa.tecnico.softeng.hotel.utils.ValidationUtils;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class Hotel {
@@ -17,16 +19,27 @@ public class Hotel {
 	private final Set<Room> rooms = new HashSet<>();
 
 	public Hotel(String code, String name) {
-		checkCode(code);
+		validateArgs(code, name);
 
 		this.code = code;
 		this.name = name;
 		Hotel.hotels.add(this);
 	}
 
+	private void validateArgs(String code, String name){
+		ValidationUtils.validateArgument(name, ParamName.NAME);
+		ValidationUtils.validateArgument(code, ParamName.CODE);
+		checkCode(code);
+	}
+	
 	private void checkCode(String code) {
 		if (code.length() != Hotel.CODE_SIZE) {
-			throw new HotelException();
+			throw new HotelException("Invalid Hotel Code Size");
+		}
+		for(Hotel hotel : Hotel.hotels){
+			if(hotel.getCode().equals(code)){
+				throw new HotelException("Hotel Code Aready In Use");
+			}
 		}
 	}
 
@@ -39,6 +52,15 @@ public class Hotel {
 		return null;
 	}
 
+	public boolean hasRoom(String number) {
+		for (Room room : this.rooms) {
+			if (room.getNumber().equals(number)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public String getCode() {
 		return this.code;
 	}

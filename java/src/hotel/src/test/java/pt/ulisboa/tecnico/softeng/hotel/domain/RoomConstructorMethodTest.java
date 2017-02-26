@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
+import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class RoomConstructorMethodTest {
 	private Hotel hotel;
@@ -25,6 +26,46 @@ public class RoomConstructorMethodTest {
 		Assert.assertEquals(1, this.hotel.getNumberOfRooms());
 	}
 
+	@Test
+	public void failure_invalid_hotel() {
+		try {
+			new Room(null, "01", Type.DOUBLE);
+			Assert.fail();
+		} catch(HotelException e){
+			//Assert.assertEquals("", e.getMessage());
+		}	
+	}
+	
+	@Test
+	public void failure_invalid_number() {
+		try {
+			new Room(this.hotel, null, Type.DOUBLE);
+			Assert.fail();
+		} catch(HotelException e){
+			//Assert.assertEquals("", e.getMessage());
+		}	
+	}
+	
+	@Test
+	public void failure_number_not_integer() {
+		try {
+			new Room(this.hotel, "IO", Type.DOUBLE);
+			Assert.fail();
+		} catch(HotelException e){
+			//Assert.assertEquals("", e.getMessage());
+		}	
+	}
+	
+	@Test
+	public void failure_invalid_type() {
+		try {
+			new Room(this.hotel, "01", null);
+			Assert.fail();
+		} catch(HotelException e){
+			//Assert.assertEquals("", e.getMessage());
+		}	
+	}
+	
 	@After
 	public void tearDown() {
 		Hotel.hotels.clear();

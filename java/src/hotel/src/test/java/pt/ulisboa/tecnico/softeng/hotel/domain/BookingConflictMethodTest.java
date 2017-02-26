@@ -7,33 +7,47 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class BookingConflictMethodTest {
-	Booking booking;
-
+	private Booking booking;
+	private LocalDate arrival;
+	private LocalDate departure;
+	
 	@Before
 	public void setUp() {
-		Hotel hotel = new Hotel("XPTO123", "Londres");
-
-		LocalDate arrival = new LocalDate(2016, 12, 19);
-		LocalDate departure = new LocalDate(2016, 12, 24);
-		this.booking = new Booking(hotel, arrival, departure);
+		this.arrival = new LocalDate(2016, 12, 19);
+		this.departure = new LocalDate(2016, 12, 24);
+		this.booking = new Booking(new Hotel("XPTO123", "Londres"), arrival, departure);
 	}
 
 	@Test
 	public void noConflictBefore() {
-		LocalDate arrival = new LocalDate(2016, 12, 16);
-		LocalDate departure = new LocalDate(2016, 12, 19);
-
-		Assert.assertFalse(this.booking.conflict(arrival, departure));
+		Assert.assertFalse(this.booking.conflict(this.arrival.minusDays(1), this.arrival));
 	}
 
 	@Test
 	public void noConflictAfter() {
-		LocalDate arrival = new LocalDate(2016, 12, 24);
-		LocalDate departure = new LocalDate(2016, 12, 30);
-
-		Assert.assertFalse(this.booking.conflict(arrival, departure));
+		Assert.assertFalse(this.booking.conflict(this.departure, this.departure.plusDays(1)));
 	}
 
+	@Test
+	public void conflictBefore() {
+		Assert.assertTrue(this.booking.conflict(this.arrival.minusDays(1), this.departure.minusDays(1)));
+	}
+	
+	@Test
+	public void conflictCenter() {
+		Assert.assertTrue(this.booking.conflict(this.arrival.plusDays(1), this.departure.minusDays(1)));
+	}
+	
+	@Test
+	public void conflictAfter() {
+		Assert.assertTrue(this.booking.conflict(this.arrival.plusDays(1), this.departure.plusDays(1)));
+	}
+	
+	@Test
+	public void conflictEquals() {
+		Assert.assertTrue(this.booking.conflict(this.arrival, this.departure));
+	}
+	
 	@After
 	public void tearDown() {
 		Hotel.hotels.clear();

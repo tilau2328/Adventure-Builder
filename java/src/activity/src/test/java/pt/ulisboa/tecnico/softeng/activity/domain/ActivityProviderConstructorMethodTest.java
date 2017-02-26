@@ -38,17 +38,7 @@ public class ActivityProviderConstructorMethodTest {
 	}
 	
 	@Test
-	public void failure_invalid_code_size_minus() {
-		try {
-			new ActivityProvider("Xtrem", this.name);
-			Assert.fail();
-		} catch(ActivityException e){
-			//Assert.assertEquals("", e.getMessage());
-		}
-	}
-	
-	@Test
-	public void failure_invalid_code_size_plus() {
+	public void failure_invalid_code_size() {
 		try {
 			new ActivityProvider("XXXtremX", this.name);
 			Assert.fail();

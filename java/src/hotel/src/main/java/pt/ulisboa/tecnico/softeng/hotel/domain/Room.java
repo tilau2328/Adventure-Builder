@@ -4,13 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.joda.time.LocalDate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+import pt.ulisboa.tecnico.softeng.hotel.utils.ParamName;
+import pt.ulisboa.tecnico.softeng.hotel.utils.ValidationUtils;
 
 public class Room {
-	private static Logger logger = LoggerFactory.getLogger(Room.class);
+	//private static Logger logger = LoggerFactory.getLogger(Room.class);
 
 	public static enum Type {
 		SINGLE, DOUBLE
@@ -22,6 +22,7 @@ public class Room {
 	private final Set<Booking> bookings = new HashSet<>();
 
 	public Room(Hotel hotel, String number, Type type) {
+		validateArgs(hotel, number, type);
 		this.hotel = hotel;
 		this.number = number;
 		this.type = type;
@@ -29,19 +30,37 @@ public class Room {
 		this.hotel.addRoom(this);
 	}
 
-	Hotel getHotel() {
+	private void validateArgs(Hotel hotel, String number, Type type){
+		ValidationUtils.validateArgument(hotel, ParamName.HOTEL);
+		ValidationUtils.validateArgument(number, ParamName.NUMBER);
+		validateRoom(hotel, number);
+		ValidationUtils.validateArgument(type, ParamName.TYPE);
+	}
+	
+	private void validateRoom(Hotel hotel, String number){
+		try {
+			Integer.parseInt(number);
+		} catch(NumberFormatException e) {
+			throw new HotelException();
+		}
+		if(hotel.hasRoom(number)){
+			throw new HotelException();
+		}
+	}
+	
+	public Hotel getHotel() {
 		return this.hotel;
 	}
 
-	String getNumber() {
+	public String getNumber() {
 		return this.number;
 	}
 
-	Type getType() {
+	public Type getType() {
 		return this.type;
 	}
 
-	boolean isFree(Type type, LocalDate arrival, LocalDate departure) {
+	public boolean isFree(Type type, LocalDate arrival, LocalDate departure) {
 		if (!type.equals(this.type)) {
 			return false;
 		}
@@ -51,7 +70,7 @@ public class Room {
 				return false;
 			}
 		}
-
+		
 		return true;
 	}
 

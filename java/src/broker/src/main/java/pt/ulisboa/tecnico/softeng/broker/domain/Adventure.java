@@ -26,6 +26,7 @@ public class Adventure {
 	private String activityBooking;
 
 	public Adventure(Broker broker, LocalDate begin, LocalDate end, int age, String IBAN, int amount) {
+		validateArgs(broker, begin, end, age, IBAN, amount);
 		this.ID = broker.getCode() + Integer.toString(++counter);
 		this.broker = broker;
 		this.begin = begin;
@@ -37,6 +38,10 @@ public class Adventure {
 		broker.addAdventure(this);
 	}
 
+	private void validateArgs(Broker broker, LocalDate begin, LocalDate end, int age, String IBAN, int amount){
+		
+	}
+	
 	public String getID() {
 		return this.ID;
 	}

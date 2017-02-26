@@ -4,11 +4,7 @@ import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 
 public class ValidationUtils {
 	static public void validateArgument(String arg, ParamName name){
-		if(arg == null){
-			throw new BankException();
-		}
-		
-		if(StringUtils.EMPTY_STRING.equals(arg.trim())){
+		if(arg == null || arg.trim().length() == 0){
 			throw new BankException();
 		}
 	}

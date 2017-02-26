@@ -49,19 +49,9 @@ public class BankConstructorTest {
 	}
 	
 	@Test
-	public void failure_invalid_code_size_minus() {
+	public void failure_invalid_code_size() {
 		try {
 			new Bank(this.name, "BK0");
-			Assert.fail();
-		} catch(BankException e){
-			//Assert.assertEquals("", e.getMessage());
-		}
-	}
-	
-	@Test
-	public void failure_invalid_code_size_plus() {
-		try {
-			new Bank(this.name, "BK011");
 			Assert.fail();
 		} catch(BankException e){
 			//Assert.assertEquals("", e.getMessage());

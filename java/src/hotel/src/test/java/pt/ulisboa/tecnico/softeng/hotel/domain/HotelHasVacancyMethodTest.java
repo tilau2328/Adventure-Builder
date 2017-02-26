@@ -24,9 +24,21 @@ public class HotelHasVacancyMethodTest {
 
 		Room room = this.hotel.hasVacancy(Type.DOUBLE, arrival, departure);
 
+		Assert.assertNotNull(room);
 		Assert.assertEquals("01", room.getNumber());
 	}
 
+	@Test
+	public void noVacancy() {
+		LocalDate arrival = new LocalDate(2016, 12, 19);
+		LocalDate departure = new LocalDate(2016, 12, 21);
+
+		Hotel.reserveHotel(Type.DOUBLE, arrival, departure);
+		Room room = this.hotel.hasVacancy(Type.DOUBLE, arrival, departure);
+		
+		Assert.assertNull(room);
+	}
+	
 	@After
 	public void tearDown() {
 		Hotel.hotels.clear();
