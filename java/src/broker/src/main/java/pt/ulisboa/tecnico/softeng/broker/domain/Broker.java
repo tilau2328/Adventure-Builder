@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
+import pt.ulisboa.tecnico.softeng.broker.utils.ParamName;
+import pt.ulisboa.tecnico.softeng.broker.utils.ValidationUtils;
 
 public class Broker {
 	private static Logger logger = LoggerFactory.getLogger(Broker.class);
@@ -18,20 +20,20 @@ public class Broker {
 	private final Set<Adventure> adventures = new HashSet<>();
 
 	public Broker(String code, String name) {
-		checkCode(code);
+		validateArgs(code, name);
 		this.code = code;
-
-		checkName(name);
 		this.name = name;
 
 		Broker.brokers.add(this);
 	}
 
+	private void validateArgs(String code, String name){
+		ValidationUtils.validateArgument(code, ParamName.CODE);
+		ValidationUtils.validateArgument(name, ParamName.NAME);
+		checkCode(code);
+	}
+	
 	private void checkCode(String code) {
-		if (code == null || code.trim().length() == 0) {
-			throw new BrokerException();
-		}
-
 		for (Broker broker : Broker.brokers) {
 			if (broker.getCode().equals(code)) {
 				throw new BrokerException();
@@ -39,17 +41,11 @@ public class Broker {
 		}
 	}
 
-	private void checkName(String name) {
-		if (name == null || name.trim().length() == 0) {
-			throw new BrokerException();
-		}
-	}
-
-	String getCode() {
+	public String getCode() {
 		return this.code;
 	}
 
-	String getName() {
+	public String getName() {
 		return this.name;
 	}
 

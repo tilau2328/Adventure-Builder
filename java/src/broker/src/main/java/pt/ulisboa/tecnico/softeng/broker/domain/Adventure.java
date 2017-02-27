@@ -4,9 +4,12 @@ import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.BankInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
+import pt.ulisboa.tecnico.softeng.broker.utils.ParamName;
+import pt.ulisboa.tecnico.softeng.broker.utils.ValidationUtils;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 
 public class Adventure {
@@ -39,7 +42,19 @@ public class Adventure {
 	}
 
 	private void validateArgs(Broker broker, LocalDate begin, LocalDate end, int age, String IBAN, int amount){
-		
+		ValidationUtils.validateArgument(broker, ParamName.CODE);
+		ValidationUtils.validateArgument(begin, ParamName.BEGIN);
+		ValidationUtils.validateArgument(end, ParamName.END);
+		ValidationUtils.validateArgument(age, ParamName.NAME);
+		ValidationUtils.validateArgument(IBAN, ParamName.IBAN);
+		ValidationUtils.validateArgument(amount, ParamName.AMOUNT);
+		validateDateDiff(begin, end);
+	}
+	
+	private void validateDateDiff(LocalDate begin, LocalDate end){
+		if(end.isBefore(begin)){
+			throw new BrokerException();
+		}
 	}
 	
 	public String getID() {
@@ -86,7 +101,9 @@ public class Adventure {
 		logger.debug("process ID:{} ", this.ID);
 		this.bankPayment = BankInterface.processPayment(this.IBAN, this.amount);
 		this.roomBooking = HotelInterface.reserveHotel(Room.Type.SINGLE, this.begin, this.end);
+		ValidationUtils.validateArgument(this.roomBooking, ParamName.ROOM_BOOKING);
 		this.activityBooking = ActivityInterface.reserveActivity(this.begin, this.end, this.age);
+		ValidationUtils.validateArgument(this.activityBooking, ParamName.ACTIVITY_BOOKING);
 	}
 
 }
